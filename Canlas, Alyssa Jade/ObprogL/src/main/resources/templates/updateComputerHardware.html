@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/files/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/style/index.css}">
+    <script th:src="@{/files/jquery.min.js}"></script>
+    <script th:src="@{/files/bootstrap.min.js}"></script>
+    <script th:src="@{/files/parts.js}"></script>
+
+    <script>
+        var timeOutWarning = 10000; // Display warning in 14 Mins.
+        var timeOutNow = 20000; // Warning has been shown, give the user 1 minute to interact
+        var warningTimer;
+        var timeoutTimer;
+
+        // Start warning timer.
+        function StartWarningTimer() {
+            warningTimer = setTimeout("IdleWarning()", timeOutWarning);
+        }
+
+        // Reset timers.
+        function ResetTimeOutTimer() {
+            clearTimeout(timeoutTimer);
+            StartWarningTimer();
+            $("#timeout").dialog('close');
+        }
+
+        // Show idle timeout warning dialog.
+        function IdleWarning() {
+            clearTimeout(warningTimer);
+            timeoutTimer = setTimeout("IdleTimeout()", timeOutNow);
+            $("#timeout").dialog({
+                modal: true
+            });
+        }
+
+        // Logout the user.
+        function IdleTimeout() {
+            window.location = "/";
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <title>CHPIS - Inventory</title>
+</head>
+<body onload="StartWarningTimer()" onmousemove="ResetTimeOutTimer()">
+
+    <!--STARTING POINT FOR ADDING PARTS-->
+    <div>
+        <div id="timeout"></div>
+        <!--TITLE OF UPDATE PARTS-->
+        <br>
+        <h1>UPDATE PARTS</h1>
+        <br>
+        <br>
+
+        <!--TABLE FOR UPDATE PARTS-->
+        <form action="#" th:action="@{/saveComputerHardware}" th:object="${computerHardware}" method="post">
+            <table border="0" cellspacing="30" cellpadding="5">
+
+                <tr>
+                    <td>ID:</td>
+                    <td>
+                        <input type="text" th:field="*{id}" readonly="readonly">
+                    </td>
+                </tr>
+                <!--NAME OF PART-->
+                <tr>
+                    <td>NAME</td>
+                    <td>
+                        <input type="text" th:field="*{name}" placeholder="Ex.: Monitor" onchange="validateName()" id="name">
+                    </td>
+                </tr>
+
+                <!--BRAND OF PART-->
+                <tr>
+                    <td>BRAND</td>
+                    <td>
+                        <input type="text" th:field="*{brand}" placeholder="Ex.: Asus" onchange="validateBrand()" id="brand">
+                    </td>
+                </tr>
+
+                <!--ASSET CODE OF PART-->
+                <tr>
+                    <td>ASSET CODE</td>
+                    <td>
+                        <input type="text" th:field="*{assetCode}" placeholder="Ex.: MN0123456" maxlength="9" onchange="validateAsset()" id="assetCode">
+                    </td>
+                </tr>
+
+                <!--CLIENT NAME-->
+                <tr>
+                    <td>CLIENT'S NAME</td>
+                    <td>
+                        <input type="text" th:field="*{clientName}" placeholder="Firstname, Lastname">
+                    </td>
+                </tr>
+
+                <!--STAFF NUMBER-->
+                <tr>
+                    <td>STAFF NO.</td>
+                    <td>
+                        <input type="text" th:field="*{staffNumber}" placeholder="sxxxxxx" maxlength="7">
+                    </td>
+                </tr>
+
+                <!--AFF NUMBER-->
+                <tr>
+                    <td>AAF NO.</td>
+                    <td>
+                        <input type="text" th:field="*{aafNumber}" placeholder="Ex.: 1" onchange="validateAaf()" id="aafNumber" maxlength="7">
+                    </td>
+                </tr>
+
+                <!--DATE ISSUED-->
+                <tr>
+                    <td>DATE ISSUED</td>
+                    <td>
+                        <input type="date" th:field="*{dateIssued}">
+                    </td>
+                </tr>
+
+                <!--SUBMIT BUTTON-->
+                <tr>
+                    <td colspan="2">
+                        <button type="submit" class="btn btn-dark">SUBMIT</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+
+
+
+    </div>
+
+</body>
+</html>

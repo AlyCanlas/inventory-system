@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/files/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/style/index.css}">
+    <script th:src="@{/files/jquery.min.js}"></script>
+    <script th:src="@{/files/bootstrap.min.js}"></script>
+
+    <script>
+        var timeOutWarning = 10000; // Display warning in 14 Mins.
+        var timeOutNow = 20000; // Warning has been shown, give the user 1 minute to interact
+        var warningTimer;
+        var timeoutTimer;
+
+        // Start warning timer.
+        function StartWarningTimer() {
+            warningTimer = setTimeout("IdleWarning()", timeOutWarning);
+        }
+
+        // Reset timers.
+        function ResetTimeOutTimer() {
+            clearTimeout(timeoutTimer);
+            StartWarningTimer();
+            $("#timeout").dialog('close');
+        }
+
+        // Show idle timeout warning dialog.
+        function IdleWarning() {
+            clearTimeout(warningTimer);
+            timeoutTimer = setTimeout("IdleTimeout()", timeOutNow);
+            $("#timeout").dialog({
+                modal: true
+            });
+        }
+
+        // Logout the user.
+        function IdleTimeout() {
+            window.location = "/";
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <title>CHPIS - Inventory</title>
+</head>
+<body onload="StartWarningTimer()" onmousemove="ResetTimeOutTimer()">
+
+    <div>
+        <div id="timeout"></div>
+        <!--ADD BUTTON-->
+        <div id="inventoryButton">
+            <br>
+            <a href="addParts"><button type="button" class="btn btn-info" >ADD FILE</button></a>
+            <button type="button" class="btn btn-info" onclick="location.href='/main'">BACK</button>
+        </div>
+        <br>
+        <br>
+
+        <!--TABLE FOR PARTS-->
+        <div class="d-flex justify-content-center">
+            <table border="1px solid black" cellpadding="20" cellspacing="30">
+
+                <!--HEADER OF TABLE-->
+                <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>BRAND</th>
+                        <th>ASSET CODE</th>
+                        <th>CLIENT NAME</th>
+                        <th>STAFF NO.</th>
+                        <th>AAF NO.</th>
+                        <th>DATE ISSUED</th>
+                    </tr>
+                </thead>
+
+                <!--BODY OF TABLE-->
+                <tbody>
+                    <tr th:each="computerHardware: ${listOfAllComputerHardware}">
+                        <td th:text="${computerHardware.name}"></td>
+                        <td th:text="${computerHardware.brand}"></td>
+                        <td th:text="${computerHardware.assetCode}"></td>
+                        <td th:text="${computerHardware.clientName}"></td>
+                        <td th:text="${computerHardware.staffNumber}"></td>
+                        <td th:text="${computerHardware.aafNumber}"></td>
+                        <td th:text="${computerHardware.dateIssued}"></td>
+
+                        <!--EDIT AND DELETE BUTTON-->
+                        <td>
+                            <a th:href="@{'/updateParts/' + ${computerHardware.id}}"><button type="button" class="btn btn-info" style="width: 105px">EDIT</button></a>
+                            <br>
+
+                            <a th:href="@{'/deleteParts/' + ${computerHardware.id}}"><button type="button" class="btn btn-danger" style="width: 105px">DELETE</button></a>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+
+
+        </div>
+    </div>
+
+</body>
+</html>

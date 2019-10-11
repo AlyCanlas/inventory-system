@@ -1,0 +1,14 @@
+body {
+    background-image: url('../images/workplace-2303851_1280.jpg');
+    background-size: cover;
+    capacity: 0.5;
+}
+
+a {
+    color: black !important;
+    font-family: Stencil;
+}
+
+th {
+    width: 30px;
+}

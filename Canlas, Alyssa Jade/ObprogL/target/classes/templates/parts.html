@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/files/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/style/parts.css}">
+    <script th:src="@{/files/jquery.min.js}"></script>
+    <script th:src="@{/files/bootstrap.min.js}"></script>
+
+    <script>
+        var timeOutWarning = 10000; // Display warning in 14 Mins.
+        var timeOutNow = 20000; // Warning has been shown, give the user 1 minute to interact
+        var warningTimer;
+        var timeoutTimer;
+
+        // Start warning timer.
+        function StartWarningTimer() {
+            warningTimer = setTimeout("IdleWarning()", timeOutWarning);
+        }
+
+        // Reset timers.
+        function ResetTimeOutTimer() {
+            clearTimeout(timeoutTimer);
+            StartWarningTimer();
+            $("#timeout").dialog('close');
+        }
+
+        // Show idle timeout warning dialog.
+        function IdleWarning() {
+            clearTimeout(warningTimer);
+            timeoutTimer = setTimeout("IdleTimeout()", timeOutNow);
+            $("#timeout").dialog({
+                modal: true
+            });
+        }
+
+        // Logout the user.
+        function IdleTimeout() {
+            window.location = "/";
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <title>CHPIS - Parts</title>
+</head>
+<body onload="StartWarningTimer()" onmousemove="ResetTimeOutTimer()">
+
+    <div id="timeout"></div>
+    <!--BUTTON GROUP FOR HOME, PARTS AND INVENTORY-->
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="link" aria-controls="pills-home" aria-selected="false" onclick="location.href='/main'">HOME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-parts-tab" data-toggle="pill" href="#pills-parts" role="link" aria-controls="pills-parts" aria-selected="true">PARTS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-inventory-tab" data-toggle="pill" href="#pills-inventory" role="link" aria-controls="pills-inventory" aria-selected="false" onclick="location.href='/partsInventory'">INVENTORY</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="link" aria-controls="pills-back" aria-selected="false" onclick="location.href='/'">SIGN OUT</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"></div>
+        <div class="tab-pane fade" id="pills-parts" role="tabpanel" aria-labelledby="pills-parts-tab"></div>
+        <div class="tab-pane fade" id="pills-inventory" role="tabpanel" aria-labelledby="pills-inventory-tab"></div>
+        <div class="tab-pane fade" id="pills-back" role="tabpanel" aria-labelledby="pills-back-tab"></div>
+    </div>
+
+    <!--PARTS NAVIGATION BAR-->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="monitor-tab" data-toggle="tab" href="#monitor" role="tab" aria-controls="monitor" aria-selected="true">Monitor</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="keyboard-tab" data-toggle="tab" href="#keyboard" role="tab" aria-controls="keyboard" aria-selected="false">Keyboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="mouse-tab" data-toggle="tab" href="#mouse" role="tab" aria-controls="mouse" aria-selected="false">Mouse</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="headset-tab" data-toggle="tab" href="#headset" role="tab" aria-controls="headset" aria-selected="false">Headset</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="laptop-tab" data-toggle="tab" href="#laptop" role="tab" aria-controls="laptop" aria-selected="false">Laptop</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="cpu-tab" data-toggle="tab" href="#cpu" role="tab" aria-controls="cpu" aria-selected="false">CPU</a>
+        </li>
+    </ul>
+
+    <div class="tab-content d-flex justify-content-center" id="myTabContent">
+
+        <!--TABLE FOR MONITOR-->
+        <div class="tab-pane fade show active" id="monitor" role="tabpanel" aria-labelledby="monitor-tab">
+            <table border="2px solid black" cellspacing="20" cellpadding="20">
+                <thead>
+                    <tr class="font-weight-bold">
+                        <td>BRAND</td>
+                        <td>ASSET CODE</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Apple</td>
+                        <td>MN0123456</td>
+                    </tr>
+
+                    <tr>
+                        <td>Samsung</td>
+                        <td>MN0123457</td>
+                    </tr>
+
+                    <tr>
+                        <td>Acer</td>
+                        <td>MN0123458</td>
+                    </tr>
+
+                    <tr>
+                        <td>Asus</td>
+                        <td>MN0123459</td>
+                    </tr>
+
+                    <tr>
+                        <td>HP</td>
+                        <td>MN0123460</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--TABLE FOR KEYBOARD-->
+        <div class="tab-pane fade" id="keyboard" role="tabpanel" aria-labelledby="keyboard-tab">
+            <table border="2px solid black" cellspacing="20" cellpadding="20">
+                <thead>
+                    <tr class="font-weight-bold">
+                        <td>BRAND</td>
+                        <td>ASSET CODE</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Apple</td>
+                        <td>KB0123456</td>
+                    </tr>
+
+                    <tr>
+                        <td>Samsung</td>
+                        <td>KB0123457</td>
+                    </tr>
+
+                    <tr>
+                        <td>Acer</td>
+                        <td>KB0123458</td>
+                    </tr>
+
+                    <tr>
+                        <td>Asus</td>
+                        <td>KB0123459</td>
+                    </tr>
+
+                    <tr>
+                        <td>HP</td>
+                        <td>KB0123460</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--TABLE FOR MOUSE-->
+        <div class="tab-pane fade" id="mouse" role="tabpanel" aria-labelledby="mouse-tab">
+            <table border="2px solid black" cellspacing="20" cellpadding="20">
+                <thead>
+                    <tr class="font-weight-bold">
+                        <td>BRAND</td>
+                        <td>ASSET CODE</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Apple</td>
+                        <td>MS0123456</td>
+                    </tr>
+
+                    <tr>
+                        <td>Samsung</td>
+                        <td>MS0123457</td>
+                    </tr>
+
+                    <tr>
+                        <td>Acer</td>
+                        <td>MS0123458</td>
+                    </tr>
+
+                    <tr>
+                        <td>Asus</td>
+                        <td>MS0123459</td>
+                    </tr>
+
+                    <tr>
+                        <td>HP</td>
+                        <td>MS0123460</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--TABLE FOR HEADSET-->
+        <div class="tab-pane fade" id="headset" role="tabpanel" aria-labelledby="headset-tab">
+            <table border="2px solid black" cellspacing="20" cellpadding="20">
+                <thead>
+                    <tr class="font-weight-bold">
+                        <td>BRAND</td>
+                        <td>ASSET CODE</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Apple</td>
+                        <td>HT0123456</td>
+                    </tr>
+
+                    <tr>
+                        <td>Samsung</td>
+                        <td>HT0123457</td>
+                    </tr>
+
+                    <tr>
+                        <td>Acer</td>
+                        <td>HT0123458</td>
+                    </tr>
+
+                    <tr>
+                        <td>Asus</td>
+                        <td>HT0123459</td>
+                    </tr>
+
+                    <tr>
+                        <td>HP</td>
+                        <td>HT0123460</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--TABLE FOR LAPTOP-->
+        <div class="tab-pane fade" id="laptop" role="tabpanel" aria-labelledby="laptop-tab">
+            <table border="2px solid black" cellspacing="20" cellpadding="20">
+                <thead>
+                    <tr class="font-weight-bold">
+                        <td>BRAND</td>
+                        <td>ASSET CODE</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Apple</td>
+                        <td>LP0123456</td>
+                    </tr>
+
+                    <tr>
+                        <td>Samsung</td>
+                        <td>LP0123457</td>
+                    </tr>
+
+                    <tr>
+                        <td>Acer</td>
+                        <td>LP0123458</td>
+                    </tr>
+
+                    <tr>
+                        <td>Asus</td>
+                        <td>LP0123459</td>
+                    </tr>
+
+                    <tr>
+                        <td>HP</td>
+                        <td>LP0123460</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--TABLE FOR CPU-->
+        <div class="tab-pane fade" id="cpu" role="tabpanel" aria-labelledby="cpu-tab">
+            <table border="2px solid black" cellspacing="20" cellpadding="20">
+                <thead>
+                    <tr class="font-weight-bold">
+                        <td>BRAND</td>
+                        <td>ASSET CODE</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Apple</td>
+                        <td>CP0123456</td>
+                    </tr>
+
+                    <tr>
+                        <td>Samsung</td>
+                        <td>CP0123457</td>
+                    </tr>
+
+                    <tr>
+                        <td>Acer</td>
+                        <td>CP0123458</td>
+                    </tr>
+
+                    <tr>
+                        <td>Asus</td>
+                        <td>CP0123459</td>
+                    </tr>
+
+                    <tr>
+                        <td>HP</td>
+                        <td>CP0123460</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
